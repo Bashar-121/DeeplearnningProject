@@ -36,7 +36,7 @@ Furthermore, per-class metrics analysis showed that the model achieved its highe
 
 Model PersistenceThe final trained weights of the optimized model are saved via PyTorch:Pythonimport torch
 
-# Save command used in the final notebook loop
+Save command used in the final notebook loop
 torch.save(model_fold.state_dict(), 'Wheat_TripleFusion_Final_Model.pth')
 
 Developed By: Qusai Rahhal, Bashar Zabaneh, Kaled AlhadearesAcademic Institution: The University of JordanSemester: Spring 2026

@@ -19,7 +19,21 @@ RGB Branch (3 Channels): Leverages a deep ResNet-50 backbone initialized with pr
 Multispectral Branch (5 Channels): Processes critical localized bands (such as Near-Infrared) typically obtained via satellite imaging to monitor cellular layout and plant moisture changes.
 Hyperspectral Branch (126 Channels): Processes highly localized narrow-band drone measurements to screen deep chemical signatures.
 
-Deep features from all three branches are independently optimized, combined via a concatenation layer, and fed into a fully connected classification head.📊 Experimental Setup & ValidationTo ensure absolute reliability and prevent single-split verification bias, the pipeline was tested using a rigorous 5-Fold Stratified Cross-Validation strategy.Loss Function: CrossEntropyLossOptimizer: Adam (Learning Rate: 0.0001)Scheduler: CosineAnnealingLR dynamically decaying over 20 epochs per fold to guarantee optimal numerical convergence.📈 Empirical Results & Ablation AnalysisFramework ModelModalities IncludedValidation ProtocolMean AccuracyStability (Std Dev)Baseline ControlRGB Only (3 Channels)Single Random Split96.00%N/A (Unverified)Proposed InnovationRGB + MS + HS (134 Channels)5-Fold Stratified CV89.39%± 2.19%🔍 Scientific InterpretationWhile the single-split RGB model shows an optimistic 96.00% accuracy, single-splits are vulnerable to partition luck and spatial overfitting.Under strict 5-Fold Stratified Cross-Validation, our TripleFusionModel achieved a highly robust 89.39% mean accuracy with an exceptionally tight standard deviation of ±2.19%. This proves that expanding the feature space to 134 channels provides a highly generalized spectral signature that behaves uniformly across unseen data structures.Furthermore, per-class metrics analysis showed that the model achieved its highest overall recall performance precisely within the 'Rust' target domain, hitting critical test epoch recall rates of 0.98 and 0.96. This ensures that early-stage fungal infestations are swiftly intercepted.📦 Core Dependencies & SetupTo run the evaluation pipeline, ensure you have the following packages installed:Bashpip install torch torchvision timm tifffile pandas scikit-learn opencv-python
+Deep features from all three branches are independently optimized, combined via a concatenation layer, and fed into a fully connected classification head.
+
+Experimental Setup & ValidationTo ensure absolute reliability and prevent single-split verification bias, the pipeline was tested using a rigorous 5-Fold Stratified Cross-Validation strategy.
+Loss Function: CrossEntropyLoss 
+Optimizer: Adam (Learning Rate: 0.0001)
+Scheduler: CosineAnnealingLR dynamically decaying over 20 epochs per fold to guarantee optimal numerical convergence. 
+Empirical Results & Ablation Analysis
+Framework ModelModalities IncludedValidation ProtocolMean AccuracyStability (Std Dev)
+Baseline ControlRGB Only (3 Channels)Single Random Split96.00%
+Proposed InnovationRGB + MS + HS (134 Channels)5-Fold Stratified CV89.39%± 2.19% Scientific Interpretation
+While the single-split RGB model shows an optimistic 96.00% accuracy, single-splits are vulnerable to partition luck and spatial overfitting.
+Under strict 5-Fold Stratified Cross-Validation, our TripleFusionModel achieved a highly robust 89.39% mean accuracy with an exceptionally tight standard deviation of ±2.19%. This proves that expanding the feature space to 134 channels provides a highly generalized spectral signature that behaves uniformly across unseen data structures.
+
+Furthermore, per-class metrics analysis showed that the model achieved its highest overall recall performance precisely within the 'Rust' target domain, hitting critical test epoch recall rates of 0.98 and 0.96. This ensures that early-stage fungal infestations are swiftly intercepted. Core Dependencies & SetupTo run the evaluation pipeline, ensure you have the following packages installed:Bashpip install torch torchvision timm tifffile pandas scikit-learn opencv-python
+
 Model PersistenceThe final trained weights of the optimized model are saved via PyTorch:Pythonimport torch
 
 # Save command used in the final notebook loop
